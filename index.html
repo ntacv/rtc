@@ -11,7 +11,7 @@
     <h1>Coordonates</h1>
     <div onclick="onClick()">click to orientate</div>
     <div id="data">data</div>
-
+<br><br>
     <!-- File input and image output -->
     <input type="file" id="input">
     <img src="" id="output">
@@ -96,17 +96,6 @@
 			  info.innerHTML = "Open that page on a phone that support motion events";
 			}
 
-
-      function onSignIn(googleUser) {
-				// Useful data for your client-side scripts:
-				var profile = googleUser.getBasicProfile();
-				
-				d.querySelector('.g-signin2').style.display = 'none';
-				d.querySelector('#profileImg').src = profile.getImageUrl();
-				// The ID token you need to pass to your backend:
-				var idToken = googleUser.getAuthResponse().id_token;
-				console.log("ID Token: " + idToken);
-			  }
 
 			
     </script>
