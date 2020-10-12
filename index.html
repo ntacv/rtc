@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <title>SocketIO Client</title>
     <script src="/socket.io/socket.io.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
 
     <h1>Coordonates</h1>
+    <div onclick="onClick()">click to orientate</div>
+    <div id="data">data</div>
 
     <!-- File input and image output -->
     <input type="file" id="input">
@@ -49,6 +52,63 @@
       socket.on("image", function (image) {
         output.src = image;
       });
+
+
+
+      const d = document;
+			var info = d.querySelector('#info');
+			
+			function onClick() {
+        alert("Try orientation");
+				// feature detect
+				if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+				  DeviceOrientationEvent.requestPermission()
+					.then(permissionState => {
+					  if (permissionState === 'granted') {
+						  window.addEventListener('deviceorientation', () => {});
+					  }
+					})
+					.catch(console.error);
+				} else {
+				  // handle regular non iOS 13+ devices
+					alert('non ios13');
+				}
+			  }
+			
+			function deviceOrientationListener(event) {
+				var data = d.querySelector('#data');
+				
+				var alpha = Math.round(event.alpha);
+				var beta = Math.round(event.beta);
+				var gamma = Math.round(event.gamma);
+				data.innerHTML = 'data : <br>'+ alpha+'<br>'+beta+'<br>'+gamma;
+			  }
+			
+			if (window.DeviceOrientationEvent) {
+				window.addEventListener("deviceorientation", deviceOrientationListener);
+				info.innerHTML =info.innerHTML+ " it works";
+				
+				/*window.addEventListener("deviceorientation", function(e){
+					
+					info.innerHTML = info.innerHTML+ ' '+ e.webkitCompassHeading;//window.DeviceOrientationEvent.alpha;
+				})*/
+			} else {
+			  info.innerHTML = "Open that page on a phone that support motion events";
+			}
+
+
+      function onSignIn(googleUser) {
+				// Useful data for your client-side scripts:
+				var profile = googleUser.getBasicProfile();
+				
+				d.querySelector('.g-signin2').style.display = 'none';
+				d.querySelector('#profileImg').src = profile.getImageUrl();
+				// The ID token you need to pass to your backend:
+				var idToken = googleUser.getAuthResponse().id_token;
+				console.log("ID Token: " + idToken);
+			  }
+
+			
     </script>
   </body>
 </html>
