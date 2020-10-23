@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>SocketIO Client</title>
+    <title>onRTC</title>
     <script src="/socket.io/socket.io.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -15,6 +15,9 @@
     <!-- File input and image output -->
     <input type="file" id="input">
     <img src="" id="output">
+
+
+
 
     <!-- Client Code -->
     <script type="text/javascript">
@@ -86,7 +89,7 @@
 			
 			if (window.DeviceOrientationEvent) {
 				window.addEventListener("deviceorientation", deviceOrientationListener);
-				info.innerHTML =info.innerHTML+ " it works";
+				info = info.innerHTML + " it works";
 				
 				/*window.addEventListener("deviceorientation", function(e){
 					
