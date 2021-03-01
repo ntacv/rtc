@@ -1,76 +1,73 @@
 <html>
 	<head>
 		<title>Inclinometer</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="google-signin-scope" content="profile email">
-		<meta name="google-signin-client_id" content="541076743174-m16msepl8hease17mam6cq65b6mereg2.apps.googleusercontent.com">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="google-signin-scope" content="profile email" />
+		<meta
+			name="google-signin-client_id"
+			content="541076743174-m16msepl8hease17mam6cq65b6mereg2.apps.googleusercontent.com"
+		/>
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 	</head>
 	<body>
-	
 		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-		<img src="" id="profileImg">
+		<img src="" id="profileImg" />
 		<div id="info"></div>
 		<div id="data"></div>
 		<div onclick="onClick()">click</div>
-		
-		
-		<script>
-			
 
+		<script>
 			const d = document;
-			var info = d.querySelector('#info');
-			
+			var info = d.querySelector("#info");
+
 			function onClick() {
-				
 				// feature detect
-				if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-				  DeviceOrientationEvent.requestPermission()
-					.then(permissionState => {
-					  if (permissionState === 'granted') {
-						window.addEventListener('deviceorientation', () => {});
-					  }
-					})
-					.catch(console.error);
+				if (typeof DeviceOrientationEvent.requestPermission === "function") {
+					DeviceOrientationEvent.requestPermission()
+						.then((permissionState) => {
+							if (permissionState === "granted") {
+								window.addEventListener("deviceorientation", () => {});
+							}
+						})
+						.catch(console.error);
 				} else {
-				  // handle regular non iOS 13+ devices
-					alert('ios13');
+					// handle regular non iOS 13+ devices
+					alert("ios13");
 				}
-			  }
-			
+			}
+
 			function deviceOrientationListener(event) {
-				var data = d.querySelector('#data');
-				
+				var data = d.querySelector("#data");
+
 				var alpha = Math.round(event.alpha);
 				var beta = Math.round(event.beta);
 				var gamma = Math.round(event.gamma);
-				data.innerHTML = 'data : <br>'+ alpha+'<br>'+beta+'<br>'+gamma;
-			  }
-			
+				data.innerHTML = "data : <br>" + alpha + "<br>" + beta + "<br>" + gamma;
+			}
+
 			if (window.DeviceOrientationEvent) {
 				window.addEventListener("deviceorientation", deviceOrientationListener);
-				info.innerHTML =info.innerHTML+ " it works";
-				
+				info.innerHTML = info.innerHTML + " it works";
+
 				/*window.addEventListener("deviceorientation", function(e){
 					
 					info.innerHTML = info.innerHTML+ ' '+ e.webkitCompassHeading;//window.DeviceOrientationEvent.alpha;
 				})*/
 			} else {
-			  info.innerHTML = "Open that page on a phone that support motion events";
+				info.innerHTML = "Open that page on a phone that support motion events";
 			}
-						
+
 			function onSignIn(googleUser) {
 				// Useful data for your client-side scripts:
 				var profile = googleUser.getBasicProfile();
-				
-				d.querySelector('.g-signin2').style.display = 'none';
-				d.querySelector('#profileImg').src = profile.getImageUrl();
+
+				d.querySelector(".g-signin2").style.display = "none";
+				d.querySelector("#profileImg").src = profile.getImageUrl();
 				// The ID token you need to pass to your backend:
 				var idToken = googleUser.getAuthResponse().id_token;
 				console.log("ID Token: " + idToken);
-			  }
+			}
 
-			
 			/*
 			var sensor = Windows.Devices.Sensors.Inclinometer.getDefault();
 			if (sensor == null){
@@ -80,7 +77,6 @@
 				console.log(reading.pitchDegrees.toFixed(1));
 			}
 		*/
-		
 		</script>
 	</body>
 </html>
